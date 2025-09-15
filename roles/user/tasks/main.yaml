@@ -1,0 +1,17 @@
+- name: app setup
+  include_role: 
+    name: common
+    tasks_from: app.yaml
+
+- name: nodejs setup
+  include_role: 
+    name: common
+    tasks_from: nodejs.yaml
+
+- name: start user service
+  ansible.builtin.service:
+    name: user
+    state: started
+    enabled: yes
+
+      

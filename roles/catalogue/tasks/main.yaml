@@ -1,0 +1,66 @@
+- name: app setup
+  include_role: 
+    name: common
+    tasks_from: app.yaml
+
+- name: nodejs setup
+  include_role: 
+    name: common
+    tasks_from: nodejs.yaml
+
+- name: copying mongodb repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present    
+
+  # community.mongodb.mongodb_shell:
+  #   file: /app/db/master-data.js
+  #   idempotent: yes
+  #   login_host: mongodb.raheemweb.fun
+
+- name: check products loaded or not
+  ansible.builtin.command:  mongosh --host mongodb.raheemweb.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  register: catalogue_output
+  ignore_errors: true
+  ignore_unreachable: true
+
+
+- name: printing the data
+  ansible.builtin.debug:
+    msg: "{{ catalogue_output }}"
+
+  ignore_errors: true
+  ignore_unreachable: true
+
+- name: load products
+  ansible.builtin.shell: mongosh --host mongodb.raheemweb.fun < /app/db/master-data.js
+  when: catalogue_output.stdout | int < 0
+  ignore_errors: true
+  ignore_unreachable: true
+
+
+
+- name: systemd setup
+  include_role: 
+    name: common
+    tasks_from: systemd.yaml
+
+
+# - name: app setup version update
+#   tags:
+#   - deployment
+#   include_role: 
+#     name: common
+#     tasks_from: deployment.yaml
+
+- name: app setup version update
+  tags: #give -t deplyment and also give app version
+  - deployment
+  import_role: 
+    name: common
+    tasks_from: deployment.yaml

@@ -1,0 +1,24 @@
+- name: creating system user
+  ansible.builtin.user:
+    name: Roboshop
+    shell: /sbin/nologin
+    system: true
+    home: /app
+
+- name: creating directory
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: downloading "{{ component }}" code
+  ansible.builtin.get_url:
+    url: https://roboshop-artifacts.s3.amazonaws.com/"{{ component }}"-v3.zip 
+    dest: /tmp/"{{ component }}".zip
+
+
+#zthis module thinks file exists on ansible control server ,needs to extract on to remote machine
+- name: extracting 
+  ansible.builtin.unarchive:
+    src: /tmp/"{{ component }}".zip
+    dest: /app
+    remote_src: yes #file already exists in catalogue server

@@ -1,0 +1,14 @@
+- name: copying systemctl service file
+  ansible.builtin.template:
+    src: '"{{ component }}".service.j2'
+    dest: /etc/systemd/system/"{{ component }}".service
+
+- name: daemond reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: starting the service
+  ansible.builtin.template:
+    name: "{{ component }}"
+    enabled: yes
+    state: restarted # even app is not running we can restart

@@ -1,0 +1,28 @@
+- name: installing maven and mysql
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - maven
+  - mysql
+
+
+- name: installing Pymysql and cryptography
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: present
+    executable: pip3.9
+  loop:
+  - crptography
+  - PyMySql
+
+
+- name: install dependencies
+  ansible.builtin.command: mvn clean package 
+  args:
+    chdir: /app
+
+- name: renaming jar file
+  ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+  args:
+    chdir: /app

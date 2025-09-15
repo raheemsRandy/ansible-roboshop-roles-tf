@@ -1,0 +1,14 @@
+- name: app setup
+  include_role:
+    name: common
+    tasks_from: app.yaml
+
+- name: go setup
+  include_role:
+    name: common
+    tasks_from: go.yaml
+
+- name: systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd.yaml
