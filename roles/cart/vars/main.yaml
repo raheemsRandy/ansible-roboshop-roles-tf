@@ -1,2 +1,2 @@
-REDIS_HOST: redis.raheemweb.fun
-CATALOGUE_HOST: catalogue.raheemweb.fun
+REDIS_HOST: redis-{{env}}.raheemweb.fun
+CATALOGUE_HOST: catalogue.backend-{{env}}.raheemweb.fun

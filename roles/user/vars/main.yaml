@@ -1,2 +1,2 @@
-REDIS_HOST: redis.raheemweb.fun
-MONGODB_HOST: mongodb.raheemweb.fun
+REDIS_HOST: redis-{{env}}.raheemweb.fun
+MONGODB_HOST: mongodb-{{env}}.raheemweb.fun
