@@ -1,5 +1,3 @@
-
-
   - name: copying rabbitmq repo
     src: rabbitmq.repo
     dest: /etc/yum.repos.d/rabbitmq.repo
