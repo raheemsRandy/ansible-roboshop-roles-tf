@@ -1,7 +1,7 @@
 
 
-CATALOGUE_HOST: catalogue.raheemweb.fun
-USER_HOST: user.raheemweb.fun
-CART: cart.raheemweb.fun
-SHIPPING_HOST: shipping.raheemweb.fun
-PAYMENT_HOST: payment.raheemweb.fun
+CATALOGUE_HOST: catalogue.backend-{{ env }}.raheemweb.fun
+USER_HOST: user.backend-{{ env }}.raheemweb.fun
+CART: cart.backend-{{ env }}.raheemweb.fun
+SHIPPING_HOST: shipping.backend-{{ env }}.raheemweb.fun
+PAYMENT_HOST: payment.backend-{{ env }}.raheemweb.fun
