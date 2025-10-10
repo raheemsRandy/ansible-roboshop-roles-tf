@@ -1,5 +1,5 @@
 - name: mysql installation
-  hosts: mysql
+  #hosts: mysql
   tasks: 
   - name: installing mysql
     ansible.builtin.dnf:
